@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.PixelGrabber;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +40,14 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        // Call service to update user
+        User updated = userService.updateUser(id, updatedUser);
+
+        // Return updated user details in response
+        return ResponseEntity.ok(updated);
     }
 }
